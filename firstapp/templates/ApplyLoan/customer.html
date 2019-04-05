@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+  <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Customer Details Form</title>
+        <link rel="stylesheet" href="{% static 'css/temp.css' %}">
+        <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+  </head>
+  <body style="background-color: #f5f5f5;">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2 col-md-2">
+
+        </div>
+        <div class="col-lg-8 col-md-8">
+          <div class="form-step"><p class="font-maax-rounded-medium bright-blue" style="font-weight: 900;">4</p></div>
+          <p class="title-form"><font style="vertical-align: inherit;font-weight: 900;"><font style="vertical-align: inherit;">Customer {{cnum}} Details Form </font></font></p>
+
+          <form id="form" action="{% url 'cdetails' %}" onsubmit="return valid()" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+            <div class="col-lg-10" style="position: relative; left: 8.75%;">
+            <div class="form-group">
+                <label for="c_owner_name"><strong>Customer Owner Name:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 255px;"><p>Enter the Customer owner Name</p> </div>
+                <input type="text" class="form-control form-control-lg" maxlength="40" placeholder="Specify same name which is in the Invoice"  name="c_owner_name" id="c_owner_name" required/>
+              </div>
+
+            <div class="form-group">
+                <label for="cb_name"><strong>Customer's Business Name:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 230px;"><p>Enter the Customer Business Name</p> </div>
+                <input type="text" class="form-control form-control-lg" maxlength="45" id="cb_name"  name="cb_name" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="cb_contact"><strong>Customer Business Contact No:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 200px;"><p>Enter the Customer Business Contact Number</p> </div>
+                <input type="number" class="form-control form-control-lg" minlength="10" maxlength="10" oninput="this.value=this.value.slice(0,this.maxLength)" id="cb_contact" name="cb_contact" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="cb_email"><strong>Customer Email Id:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 295px;"><p>Enter the Customer Mail Id</p> </div>
+                <input type="email" class="form-control form-control-lg" maxlength="40" id="cb_email" name="cb_email" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="cb_address"><strong>Customer's Business Address:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 215px;"><p>Enter the Customer Business Address</p> </div>
+                <textarea id="cb_address" class="form-control form-control-lg" style="resize:none" minlength="10" rows="4" maxlength="150" name="cb_address" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="c_type"><strong>Customer's Business Type:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 235px;"><p>Enter the Type of Business</p> </div>
+                <select name="c_type" id="c_type" class="form-control form-control-lg" required aria-required="true">
+                    <option value="" selected disabled>-Select one-</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Retailer">Retailer</option>
+                    <option value="Retailer">Transportation</option>
+                    <option value="Textile">Textile</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+              <label for="cb_relation"><strong>Relationship Between Customer and Business:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 90px;"><p>Enter the Relationship Between Customer and Business in years:</p> </div>
+                <input type="number" class="form-control form-control-lg" maxlength="2" min="1"  id="cb_relation" placeholder="Specify in terms of years(Should be min 2 years)" name="cb_relation" oninput="this.value=this.value.slice(0,this.maxLength)"  required/>
+            </div>
+
+            <div class="form-group">
+                <label for="c_bus_pan_no"><strong>Customer's Business PAN:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 240px;"><p>Enter the Pan No of Customer's Business</p> </div>
+                <input type="text" class="form-control form-control-lg" minlength="8" maxlength="10" oninput="this.value = this.value.toUpperCase()" id="c_bus_pan_no" name="c_bus_pan_no"  required/>
+            </div>
+
+            <div class="form-group">
+                <label for="c_est_date"><strong>Customer's Business Establish Date:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 170px;"><p>Enter the customer's Business firm established date</p> </div>
+                <input type="date" class="form-control form-control-lg" id="c_est_date" name="c_est_date" onkeydown="return false" min="10-20-1970" max="10-10-2020" required />
+            </div>
+
+            <div class="form-group">
+                <label for="c_turnover"><strong>Turnover of Customer's Business:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 185px;"><p>Enter the customer's Turnover</p> </div>
+                <input type="number" class="form-control form-control-lg" id="c_turnover" min="50000" max="1000000" placeholder="Must be minimum 50k to maximum 10Lakh Rupees" name="c_turnover" maxlength="7" oninput="this.value=this.value.slice(0,this.maxLength)" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="c_invoice_no"><strong>Customer's Invoice Number:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 222px;"><p>Enter the Invoice Number of Customer</p> </div>
+                <input type="number" class="form-control form-control-lg" min="1" maxlength="9" id="c_invoice_no" name="c_invoice_no" oninput="this.value=this.value.slice(0,this.maxLength)" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="c_invoice_amount"><strong>Customer's Invoice amount:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 225px;"><p>Enter the Customer's Invoice amount</p> </div>
+                <input type="number" class="form-control form-control-lg" min="50000" placeholder="Must be greater than 50k and less than 2Lakh Rupees" id="c_invoice_amount"
+                   name="c_invoice_amount" maxlength="6" oninput="this.value=this.value.slice(0,this.maxLength)" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="c_invoice_issue_date"><strong>Invoice Issue Date:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 295px;"><p>Date when invoice was issued</p> </div>
+                <input type="date" class="form-control form-control-lg" id="c_invoice_issue_date" name="c_invoice_issue_date" min="10-20-1970" max="10-10-2020" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="c_invoice_due_date"><strong>Invoice Due Date:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 302px;"><p>Due date of invoice</p> </div>
+                <input type="date" class="form-control form-control-lg" id="c_invoice_due_date" name="c_invoice_due_date" min="11-20-1970" max="11-10-2020" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="c_file_audit"><strong>Customer Audit:</strong></label>
+                <div class="help-tip" style="left: 324px;"><p>Audit File of Invoice</p> </div>
+                <input type="file" class="form-control form-control-lg" accept="image/*,.docx,.doc,.pdf" name="c_file_audit" id="c_file_audit" onchange="return fileValidation(c_file_audit)" >
+            </div>
+
+            <div class="form-group">
+                <label for="c_file_saleledger"><strong>Customer Sales Ledger:</strong></label>
+                <div class="help-tip" style="left: 270px;"><p>Customer Sales Ledger</p> </div>
+                <input type="file" class="form-control form-control-lg" accept="image/*,.docx,.doc,.pdf" name="c_file_saleledger" id="c_file_saleledger" onchange="return fileValidation(c_file_saleledger)" >
+            </div>
+
+            <div class="form-group">
+                <label for="c_file_invoice"><strong>Customer Invoice:<font color="red" size="5px">*</font></strong></label>
+                <div class="help-tip" style="left: 300px;"><p>Invoice of the customer</p> </div>
+                <input type="file" class="form-control form-control-lg" accept="image/*,.docx,.doc,.pdf" name="c_file_invoice" id="c_file_invoice" onchange="return fileValidation(c_file_invoice)" required>
+            </div>
+
+            <div class="form-group">
+                <label for="c_file_statement"><strong>Customer File Statement:</strong></label>
+                <div class="help-tip" style="left: 255px;"><p>File statement of customer</p> </div>
+                <input type="file" class="form-control form-control-lg" accept="image/*,.docx,.doc,.pdf" name="c_file_statement" id="c_file_statement" onchange="return fileValidation(c_file_statement)">
+            </div>
+    </div>
+     <hr>
+    <div class="col text-center">
+{#                <button type="submit" class="btn btn-back"><b>← Back</b></button>#}
+        <button name="Submit" class="btn btn-next" value='{{cnum}}'>Submit</button>
+    </div>
+
+          </form>
+        </div>
+        <div class="col-lg-2 col-md-2">
+
+        </div>
+      </div>
+    </div>
+
+    </body>
+
+    <script>
+     var regex = /^[a-zA-Z ]*$/;
+     var format = /[!#$%^&*()+\-=\[\]{};':"\\|,<>\/?]/;
+
+
+
+      var BusinessestablishedDate = new Date();
+      BusinessestablishedDate.setFullYear(BusinessestablishedDate.getFullYear() - 3);
+      var d = BusinessestablishedDate.getDate();
+      var m = BusinessestablishedDate.getMonth()+1; //January is 0!
+      var yy = BusinessestablishedDate.getFullYear();
+       if(d<10){
+            d='0'+d
+        }
+        if(m<10){
+            m='0'+m
+        }
+      BusinessestablishedDate = yy+'-'+m+'-'+d;
+      document.getElementById("c_est_date").setAttribute("max", BusinessestablishedDate);
+
+      var invoiceissueDate = new Date();
+      invoiceissueDate.setDate(invoiceissueDate.getDate() - 1);
+      var d1 = invoiceissueDate.getDate();
+      var m1 = invoiceissueDate.getMonth()+1; //January is 0!
+      var yy1 = invoiceissueDate.getFullYear();
+      if(d1<10){
+              d1='0'+d1
+          }
+          if(m1<10){
+              m1='0'+m1
+          }
+      invoiceissueDate = yy1+'-'+m1+'-'+d1;
+      document.getElementById("c_invoice_issue_date").setAttribute("max",invoiceissueDate );
+      var invoicedueDate = new Date();
+      var numberOfDaysToAdd = 6;
+      invoicedueDate.setDate(invoicedueDate.getDate() + 10);
+      var dd = invoicedueDate.getDate();
+      var mm = invoicedueDate.getMonth()+1; //January is 0!
+      var yyyy = invoicedueDate.getFullYear();
+      if(dd<10){
+              dd='0'+dd
+          }
+          if(mm<10){
+              mm='0'+mm
+          }
+      invoicedueDate = yyyy+'-'+mm+'-'+dd;
+      document.getElementById("c_invoice_due_date").setAttribute("min", invoicedueDate);
+
+
+    function valid() {
+           var issd = document.getElementById("c_invoice_issue_date").value;
+           var dued = document.getElementById("c_invoice_due_date").value;
+           var t = Math.floor(( Date.parse(dued) - Date.parse(issd) ) / 86400000);
+
+           if(!(regex.test(document.getElementById("c_owner_name").value)) || format.test(document.getElementById("c_owner_name").value)){
+               window.alert("Customer Name allows only alphabets!!");
+               document.getElementById("c_owner_name").focus();
+               return false;
+           }if(!(isNaN(document.getElementById("cb_name").value)) || format.test(document.getElementById("cb_name").value)){
+               window.alert("Customer's Business Name allows only alphabets!!");
+               document.getElementById("cb_name").focus();
+               return false;
+           }
+           else if(document.getElementById("cb_contact").value.length < 10){
+           window.alert("Mobile Number must be 10 digits!");
+           document.getElementById("cb_contact").focus();
+           return false;
+            }
+           else if(!regex.test(document.getElementById("c_type").value)){
+               window.alert(" Customer Type only allows Characters!!");
+               document.getElementById("c_type").focus();
+               return false;
+           }else if(document.getElementById("cb_relation").value<2){
+               window.alert("Customer-Business Relation Should be minimum of 2 years");
+               document.getElementById("cb_relation").focus();
+               return false;
+           }else if(t < 30) {
+            window.alert("Due date must have atleast 30 days gap from Issue Date");
+            return false;
+        }else if(50000>document.getElementById("c_invoice_amount").value || document.getElementById("c_invoice_amount").value>200000){
+               window.alert("Invoice amount should be greater than 50k and less than 2Lakh Rupees!");
+               return false;
+           }else {
+               return true;
+           }
+       }
+
+       function fileValidation(file){
+       var fileInput = file;
+       var filePath = fileInput.value;
+       var allowedExtensions = /(\.png|\.jpg|\.jpeg|\.pdf|\.doc|\.docx)$/i;
+       if(!allowedExtensions.exec(filePath)){
+           alert('Please upload file having extensions .png/.jpeg/.jpg/.pdf/.doc only.');
+           fileInput.value = '';
+           return false;
+       }else{
+           //Image preview
+           if (fileInput.files && fileInput.files[0]) {
+               var reader = new FileReader();
+               reader.onload = function(e) {
+                   document.getElementById('imagePreview').innerHTML = '<img src="'+e.target.result+'"/>';
+               };
+               reader.readAsDataURL(fileInput.files[0]);
+           }
+       }
+    }
+
+</script> 
+{% endblock %}

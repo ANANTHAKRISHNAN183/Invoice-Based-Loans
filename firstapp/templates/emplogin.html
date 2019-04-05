@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% block content %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    </script>
+    <style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* Full-width input fields */
+    input[type=text], input[type=password] {
+      width: 100%;
+      height: 50%;
+      padding: 12px 20px;
+        {#margin: 5px 0;#}
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+    }
+
+
+    form {
+      max-width: 350px;
+      margin: 10px auto;
+      padding: 10px 30px;
+      background: #f4f7f8;
+      border-radius: 10px;
+    }
+    /* Set a style for all buttons */
+    button {
+      font-size: 100px;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    /* Center the image and position the close button */
+    .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+      position: relative;
+    }
+
+    img.avatar {
+      width: 40%;
+      border-radius: 50%;
+    }
+
+    .container {
+      padding: 16px;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div style="text-align: center;margin-top: 15px;"><h3>{{ message }}</h3></div>
+      <form  action="{% url 'employeelogin' %}" style="margin-top: 50px;" method="POST">
+          {% csrf_token %}
+        <div style="text-align: center;"><h2 style="color: #005eb8;">Employee Login</h2></div>
+        <div class="imgcontainer">
+          <img src="../static/images/logo.png" alt="Avatar" class="avatar">
+        </div>
+        <div class="container">
+          <label for="uname"><b>Username:</b></label>
+          <input type="text" placeholder="Enter Username" name="username" required>
+          <label for="psw"><b>Password:</b></label>
+          <input type="password" placeholder="Enter Password" name="password" required>
+
+          <button type="submit" class="btn btn-primary">Login</button>
+
+        </div>
+
+
+      </form>
+    </div>
+</body>
+{% endblock %}
+

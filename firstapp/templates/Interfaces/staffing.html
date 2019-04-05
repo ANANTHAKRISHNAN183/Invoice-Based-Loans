@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% extends 'base1.html' %}
+{% load staticfiles %}
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Staffing Interface</title>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{#    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+{% block content %}
+<body style="background-color: #f5f5f5">
+    <div style="text-align: center;"><h1>{{ message }}</h1></div>
+    <center><h2 style="color: #005eb8;">Staff WorkBench</h2></center><br/>
+    <center><table class="table table-hover table-bordered" style="border-color: black;font-size: 17px; width:95%; background-color: white;">
+    <thead>
+          <tr>
+              <th>Loan Id</th>
+              <th>Business Name</th>
+              <th>Total Invoice Amount</th>
+              <th>Email ID</th>
+              <th>Contact Number</th>
+              <th>Remarks</th>
+              <th>Re-Verification</th>
+              <th>Customers</th>
+          </tr>
+    </thead>
+    	{% for i in bus %}
+            <tbody>
+          <tr>
+            <td>{{i.loan_id.loan_id}}</td>
+            <td>{{i.b_id.b_name}}</td>
+            <td>{{i.loan_id.b_total_invoice_amount}}</td>
+            <td>{{i.b_id.b_email}}</td>
+            <td>{{i.b_id.b_contact}}</td>
+            <td>{{ i.mv_remarks }}</td>
+            <td>{{i.mv_reverify}}</td>
+            <td><form action="{% url 'Staffinterface' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-primary" id='btn' name="view" value="{{ i.loan_id.loan_id }}">View Details</button>
+             </form>
+            </td>
+          </tr>
+            </tbody>
+    {% endfor %}
+
+   	</table></center>
+</body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+{% endblock %}
+</html>

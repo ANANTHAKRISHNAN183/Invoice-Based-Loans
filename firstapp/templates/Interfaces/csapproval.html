@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+<head xmlns="http://www.w3.org/1999/xhtml">
+    <meta charset="UTF-8">
+    <title>Customer Service Interface</title>
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+</head>
+
+<body style="background-color: #f5f5f5">
+    <div style="text-align: center;"><h2>{{ message }}</h2></div>
+    <center><h2 style="color: #005eb8;margin-top: 10px;">Customer Details</h2></center><br/>
+    <center><table id="myTable" class="table table-hover table-bordered" style="border-color: black;font-size: 17px; width:95%;word-wrap: break-word; table-layout: fixed; background-color: white;">
+    <thead>
+          <tr>
+              <th width="7%">Loan Id</th>
+              <th width="9%">Customer Id</th>
+              <th>Customer Name</th>
+              <th>Customer Business Name</th>
+              <th>Customer Business Type</th>
+              <th>Invoice Amount</th>
+              <th>Email ID</th>
+              <th>Contact Number</th>
+              <th>Remarks</th>
+             <th>Re-verification</th>
+              <th style="width: 12%">Status</th>
+          </tr>
+     </thead>
+    	{% for i in cust %}
+       <tbody>
+          <tr>
+            <td>{{i.loan_id.loan_id}}</td>
+            <td>{{i.c_id.c_id}}</td>
+            <td>{{i.c_id.c_owner_name}}</td>
+            <td>{{i.c_id.cb_name}}</td>
+            <td>{{i.c_id.cb_type}}</td>
+            <td>{{i.c_id.cb_invoice_amt}}</td>
+            <td>{{i.c_id.cb_email}}</td>
+            <td>{{i.c_id.cb_contact}}</td>
+            <td>{{ i.mv_remarks }}</td>
+            <td>{{ i.mv_reverify }}</td>
+            <td><button type="submit" class="btn btn-primary" id='myBtn' onclick="display()" name="btn">Update Status</button>
+
+               <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                <div id="myModal" class="modal" style="position: absolute;vertical-align: middle;left: 50%;top: 50%;transform: translate(-50%, -50%);">
+{#                    style="position: absolute;top: 10px;right: 100px; bottom: 0;left: 0;z-index: 10040;overflow:auto;overflow-y: auto"#}
+		            <div class="modal-content" style="width: 800px;height: 500px;background-color: #f5f5f5;">
+
+		                <span class="close" style="position:absolute;left : 95%;font-size: xx-large">&times;</span>
+                        <div style="position: absolute; left: 5%;margin-top: 10px;">
+                        <center><h2 style="color: #005eb8;">Please provide the status of customer</h2></center>
+                        <h4>Select the options:</h4>
+                        <ul class="list-group" style="width: 720px">
+                            <li class="list-group-item" >
+                                <div class="row">
+                                    <label for="phonecallstatus"> Did the customer lift your call? </label>
+                                    <div style="position: absolute;left: 65%;">
+                                        <input type="radio" value="valid" name="phonecallstatus" id="1"><label for="1">Yes</label> &nbsp;&nbsp;
+                                        <input type="radio" value="Invalid" name="phonecallstatus" id="2"><label for="2">No</label> </div>
+                                 </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <label for="addressstatus"> Is the Address provided by customer valid?</label>
+                                    <div style="position: absolute;left: 65%;">
+                                        <input type="radio" value="valid" name="addressstatus" id="3"><label for="3">Yes</label> &nbsp;&nbsp;
+                                        <input type="radio" value="Invalid" name="addressstatus" id="4"><label for="4">No</label>
+                                    </div>
+                                </div>
+                            </li>
+
+                        {% comment %}Information provided by Customer:
+                        <input type="radio" value="Yes" name="caddress">Valid &nbsp;
+                        <input type="radio" value="No" name="caddress">Invalid
+                        <br/><br/>{% endcomment %}
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <label for="status"> Final Status:</label>
+                                        <div style="position: absolute;left:65%;">
+                                            <input type="radio" value="Accepted" name="status" id="Accepted"/><label for="Accepted">Accepted</label> &nbsp;&nbsp;
+                                            <input type="radio" value="Rejected" name="status" id="Rejected"/><label for="Rejected">Rejected</label>
+                                        </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                        <label for="remarks">Remarks:</label><br/>
+                        <textarea name="remarks" id="remarks" placeholder="Specify the reasons if Customer gets Rejected" rows="3" cols="3" style="background-color:#f4f7f8;resize:none;width: 600px;border-color: #8a97a0;border-radius: 5px"></textarea>
+                                </li>
+                            </ul>
+                        <center><button type="submit" class="btn btn-primary" style="width:150px; height: 50px; border-radius: 15px;margin-top: 5px;" name="updatecustomer" id="updatecustomer" value="{{ i.c_id.c_id }}">Submit</button></center>
+                    </div>
+
+                    </div>
+                </div>
+              </form>
+            </td>
+         </tr>
+        </tbody>
+        {% endfor %}
+       </table>
+
+
+    {% if not cust%}
+{#        <div id="bmodal" class="modal">#}
+{#            <div class="modal-content">#}
+                <form method="POST">
+                {% csrf_token %}
+{#                    <tr style="border: none;"><td colspan="8">#}
+
+                    <div class="modal-content" id="busmodel">
+
+                        <div class="row">
+{#		                <span class="close1">&times;</span>#}
+                            <div class="col-md-12">
+                            <h2>Please provide the  final status of Business</h2><br/>
+                           <ul class="list-group" style="width: 720px">
+
+                               <li class="list-group-item" >
+                                <div class="row">
+                                    <label for="busphonecallstatus"> Did the Business lift your call? </label>
+                                    <div style="position: absolute;left: 50%;">
+                                        <input type="radio" value="valid" name="busphonecallstatus" id="5"><label for="5">Yes</label> &nbsp;&nbsp;
+                                        <input type="radio" value="Invalid" name="busphonecallstatus" id="6"><label for="6">No</label> </div>
+                                 </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <label for="busaddressstatus"> Is the Address provided by Business valid?</label>
+                                    <div style="position: absolute;left: 50%;">
+                                        <input type="radio" value="valid" name="busaddressstatus" id="7"><label for="7">Yes</label> &nbsp;&nbsp;
+                                        <input type="radio" value="Invalid" name="busaddressstatus" id="8"><label for="8">No</label>
+                                    </div>
+                                </div>
+                            </li>
+
+                               <li class="list-group-item">
+                                        <div class="row">
+                                            <label for="bstatus" style="margin-left: 60px;"> Final Status:</label>
+                                            <div style="position: absolute;left:40%;">
+                                                <input type="radio" value="Accepted" name="bstatus" id="Approve" required/><label for="Approve"> Approve</label>&nbsp;&nbsp;&nbsp;
+                                                <input type="radio" value="Rejected" name="bstatus" id="Reject"/><label for="Reject"> Reject</label>
+                                                <br/>
+                                            </div>
+                                        </div>
+                                    </li>
+                               <li class="list-group-item">
+                                    <label for="remarks" >Remarks:</label><br/>
+                                    <textarea name="remarks" id="remarks" placeholder="Specify the reasons if Business gets Rejected" rows="3" cols="100" style="background-color:#f4f7f8;resize:none;width: 600px;border-color: #8a97a0;border-radius: 5px;"></textarea>
+                                </li>
+                            </ul>
+                            <br/>
+                            <button type="submit" class="btn btn-primary" id='bupdate' value="{{i.loan_id.loan_id}}" style="margin-top: 5px;" name="updatebusiness">Update Business Status</button>
+                            </div>
+{#                    </tr>#}</div>
+                </div>
+
+                </form>
+{#            </div>#}
+{#        </div>#}
+    {% endif %}
+{#                        <button type="submit" name="updatebusiness" value="{{ i.loan_id.loan_id}}">Submit</button>#}
+{#                    </div>#}
+{#                </div>#}
+    </center>
+</body>
+
+<script>
+// JQuery code for retreiving updatecustomer button value
+    $(document).ready(function(){
+
+    // code to read selected table row cell data (values).
+    $("#myTable").on('click','#myBtn',function(){
+     // get the current row
+     var currentRow=$(this).closest("tr");
+
+     var col1=currentRow.find("td:eq(0)").text(); // get current row 1st TD value
+     var col2;
+     col2 = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
+     {#var col3=currentRow.find("td:eq(2)").text(); // get current row 3rd TD#}
+     var data=col2;
+     var x=$('#updatecustomer').val(data);
+    });
+    });
+
+
+/* JS for getting modal popup for customer status update */
+    var modal = document.getElementById('myModal');
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    function display() {
+          modal.style.display = "block";
+        }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+    {#var busmodal = document.getElementById('busmodel');#}
+   	</script>
+
+{% endblock %}

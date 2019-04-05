@@ -1,0 +1,118 @@
+ .title-form {
+              width: 75%;
+              position: relative;
+              left:10%;
+
+              font-size: 24px!important;
+              display: inline-block;
+              color: #005eb8;
+              font-weight: normal;
+              font-family: 'MaaxRounded-medium';
+              text-align: center;
+              margin-bottom: 40px;
+              }
+.btn-next {
+    height: 50px;
+    padding: 12px 25px;
+    display: inline-block;
+    position: relative;
+    border: 0px;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #005eb8;
+    font-family: Raleway;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    min-width: 150px;
+}
+label{
+        color: #005eb8;
+      }
+::placeholder { /* Chrome/Opera/Safari */
+    color: lightgrey;
+    font-size: 15px;
+  }
+
+
+
+
+
+.help-tip{
+   position: relative;
+   /*top: 18px;*/
+   right: -0px;
+   display: inline-block;
+   text-align: center;
+   background-color: #005eb8;
+   border-radius: 50%;
+   width: 24px;
+   height: 24px;
+   font-size: 14px;
+   line-height: 26px;
+   cursor: default;
+}
+
+.help-tip:before{
+   content:'i';
+   font-weight: bold;
+   font-family:Monotype Corsiva;
+     font-size: 16px;
+   color:#fff;
+}
+
+.help-tip:hover p{
+   display:block;
+   transform-origin: 100% 0%;
+
+   -webkit-animation: fadeIn 0.3s ease-in-out;
+   animation: fadeIn 0.3s ease-in-out;
+
+}
+
+.help-tip p{  
+  /* The tooltip */
+  font-weight: bold;
+   display: none;
+   text-align: left;
+   background-color: #FFA500;
+   padding: 20px;
+   width: 300px;
+   position: absolute;
+   border-radius: 6px;
+   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+   right: -4px;
+   color: #0000A0;
+   font-size: 15px;
+   line-height: 1.4;
+   left: 105%;
+   z-index: 1;
+}
+
+/* CSS animation */
+
+@-webkit-keyframes fadeIn {
+   0% {
+       opacity:0;
+       transform: scale(0.6);
+   }
+
+   100% {
+       opacity:100%;
+       transform: scale(1);
+   }
+}
+
+@keyframes fadeIn {
+   0% { opacity:0; }
+   100% { opacity:100%; }
+}
+
+@media screen and (min-width: 480px) {
+
+ form {
+   max-width: 600px;
+ }
+
+}

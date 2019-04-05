@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<head>
+  <meta charset="UTF-8">
+  <title>Home Page</title>
+  <!-- <link rel="stylesheet" href="{% static 'css/homepage.css' %}"> -->
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'> -->
+   <style type="text/css">
+   table,th, td {
+      text-align: center;
+      table-layout: auto;
+  border: 2px solid black;
+}
+  </style>
+
+</head>
+<body style="background-color: #f5f5f5;" >
+    <br/>
+    <center><h1 style="color: #005eb8;">Loan History </h1></center><br/>
+    {% if ob1 == '' %}
+    <h1>{{ message }}</h1>
+    {%  else %}<center>
+         <table class="table table-hover table-bordered" style="width:95%;font-size: 16px; word-wrap: break-word; background-color: white;">
+          <thead>
+          <tr>
+            <th>S.NO</th>
+           <th>Applied Date</th>
+            <th>Total Invoice Amount</th>
+            <th>Sanctioned Amount</th>
+            <th>First Disbursment Amount</th>
+            <th>First Disbursment Date</th>
+            <th>Second Disbursment Amount</th>
+            <th>Second Disbursment Date</th>
+            <th>Loan Status</th>
+            <th>Final Status</th>
+          </tr>
+          </thead>
+          <tbody>
+        {% for i in ob1 %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.0}}</td>
+            <td>{{i.1}}</td>
+            <td>{{i.2}}</td>
+            <td>{{i.3}}</td>
+            <td>{{i.4}}</td>
+            <td>{{i.5}}</td>
+            <td>{{i.6}}</td>
+            <td>{{i.8}}</td>
+            <td>{{i.7}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        {% endif %}
+
+</table>
+</center>
+{% endblock %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends 'base1.html' %}
+{%load static %}
+{% load staticfiles %}
+{% block content %}
+
+  <head>
+       <meta charset="UTF-8">
+    <title>Manager Interface</title>
+    <link rel="stylesheet" href="{% static '' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <style>
+    #submit{
+        width:300px;
+        height: 50px;
+        font-size: 20px !important;
+        background-color: #007bb1;
+        color: white;
+    }
+      #submit1{
+        width:300px;
+        height: 50px;
+        font-size: 20px !important;
+        color: white;
+    }
+  </style>
+    </head>
+    <body style="background-color: #f5f5f5">
+    <div style="text-align: center;"><h1>{{ message }}</h1></div>
+    <div class="row">
+    <div class="col-lg-3"></div>
+          <div class="col-lg-6" style="margin-top: 10%;">
+      <form action="" method="POST" style="background-color: white;padding-bottom: 60px;padding-top: 50px;">
+      {% csrf_token %}
+
+          <div class="col text-center">
+        <h1>Manager Interface</h1>
+
+              <button id="submit" type="submit" class="btn"  onsubmit="" name="approved_loans"><b>Approved Loans</b></button><br/><br/>
+              <button id="submit1" type="submit" class="btn btn-danger" onsubmit="" name="rejected_loans"><b>Rejected Loans</b></button>
+          </div>
+      </form>
+          </div>
+    </div>
+
+</body>
+{%endblock%}

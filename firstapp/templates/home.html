@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+</head>
+
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div style="">
+        <p class="title-form" style="padding-top: 20px; width: 75%;
+              position: relative;
+              left:10%;
+
+              font-size: 22px!important;
+              display: inline-block;
+              color: #005eb8;
+              font-weight: normal;
+              font-family: 'MaaxRounded-medium',serif;
+              text-align: center;
+              margin-bottom: 20px; "><font style="vertical-align: inherit; font-weight: 900; font-size: 43px;">Welcome {{ user.username }}</font></p>
+
+                <p class="title-form" style="width: 75%;
+              position: relative;
+              left:10%;
+              font-size: 21px!important;
+              display: inline-block;
+              color: #005eb8;
+              font-weight: normal;
+              font-family: 'MaaxRounded-medium',serif;
+              text-align: center;
+              margin-bottom: 20px; padding-top: 15px;">Please fill your Business Details by clicking the button Business Details<br/>Apply New Loan by clicking the button Apply Invoice Loan</p>
+                <p class="col text-center" style="font-size: 24px;">{{ user.message }}</p>
+
+
+            <div style="position: relative; left:30%;">
+                <button type="submit" class="btn" style="border-radius: 10px; height: 50px; width: 150px; background-color: #ff7e1d; border-color:#ff7e1d; color: white;font-size: 17px;"
+                        name="business">Business Details</button>
+                &nbsp;&nbsp;
+                <!-- or status == 'Loan done' -->
+                {% if status == 'Business Details' or  status == 'Invoice and Customer Details' or status == 'Loan done' or status == 'Verification Rejected' or status == 'Business LOA Rejected' or status == 'Details Partially Filled' or status == 'Paid to Collection'%}
+                    <button type="submit" style="border-radius: 10px; height: 50px; width: 150px; background-color: #ff7e1d; border-color:#ff7e1d; color: white;font-size: 15px;" class="btn btn-success" name="loan" >Apply Invoice Loan</button>
+                {% endif %}
+            &nbsp;&nbsp;&nbsp;
+             <button type="submit" class="btn"  style="border-radius: 10px; height: 50px; width: 150px; background-color: #ff7e1d; border-color:#ff7e1d; color: white;font-size: 15px;" name="loan_history">Loan History</button>
+            </div>
+
+              {% if status != 'Business Details'  %}
+               <br><br><br>
+
+                <div class="container">
+                    <div class="panel panel-default">
+                    <div class="panel-heading"><h3>Current Application Status </h3></div>
+                    <div class="panel-body">
+                    <div class="stepper">
+                       <ul class="nav nav-tabs" role="tablist">
+                         <li role="presentation" class="active" id="stepper-step-1">
+                           <a class="persistant-disabled" href="#stepper-step-1" data-toggle="tab" aria-controls="stepper-step-1" role="tab" title="Step 1">
+                             <span class="round-tab">1</span>
+                           </a>
+                         </li>
+                         <li role="presentation" class="disabled"  id="stepper-step-2">
+                           <a class="persistant-disabled" href="#stepper-step-2" data-toggle="tab" aria-controls="stepper-step-2" role="tab" title="Step 2">
+                             <span class="round-tab">2</span>
+                           </a>
+                         </li>
+                         <li role="presentation" class="disabled"  id="stepper-step-3">
+                           <a class="persistant-disabled" href="#stepper-step-3" data-toggle="tab" aria-controls="stepper-step-3" role="tab" title="Step 3">
+                             <span class="round-tab">3</span>
+                           </a>
+                         </li>
+                         <li role="presentation" class="disabled"  id="stepper-step-4">
+                           <a class="persistant-disabled" href="#stepper-step-4" data-toggle="tab" aria-controls="stepper-step-4" role="tab" title="Step 4">
+                             <span class="round-tab">4</span>
+                           </a>
+                         </li>
+                          <li role="presentation" class="disabled"  id="stepper-step-5">
+                           <a class="persistant-disabled" href="#stepper-step-5" data-toggle="tab" aria-controls="stepper-step-5" role="tab" title="Step 5">
+                             <span class="round-tab">5</span>
+                           </a>
+                         </li>
+                          <li role="presentation" class="disabled"  id="stepper-step-6">
+                           <a class="persistant-disabled" href="#stepper-step-6" data-toggle="tab" aria-controls="stepper-step-6" role="tab" title="Step 6">
+                             <span class="round-tab">6</span>
+                           </a>
+                         </li>
+                          <li role="presentation" class="disabled"  id="stepper-step-7">
+                           <a class="persistant-disabled" href="#stepper-step-7" data-toggle="tab" aria-controls="stepper-step-7" role="tab" title="Step 7">
+                             <span class="round-tab">7</span>
+                           </a>
+                         </li>
+                          <li role="presentation" class="disabled"  id="stepper-step-8">
+                           <a class="persistant-disabled" href="#stepper-step-8" data-toggle="tab" aria-controls="stepper-step-8" role="tab" title="Step 8">
+                             <span class="round-tab">8</span>
+                           </a>
+                         </li>
+                       </ul>
+                        <p id="content"></p>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+          {% endif %}
+          </div>
+      </form>
+
+</body>
+
+<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+<script type="text/javascript">
+
+     document.getElementById('content').innerHTML='<h3>1. Loan Application Form need to be Filled</h3>';
+
+     if("{{status}}" === 'loan applied'||  "{{status}}" ==='Under Business verification')
+     {
+        document.getElementById("stepper-step-1").classList.add('completed');
+        document.getElementById("stepper-step-1").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.add('active');
+        document.getElementById("stepper-step-2").classList.remove('disabled');
+        document.getElementById('content').innerHTML='<h3>2. Loan Application Filled and Verification in Progress</h3>';
+      }
+      if("{{status}}" === 'Verification Accepted')
+     {
+        document.getElementById("stepper-step-1").classList.add('completed');
+        document.getElementById("stepper-step-1").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.add('completed');
+        document.getElementById("stepper-step-2").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.remove('disabled');
+        document.getElementById("stepper-step-3").classList.add('active');
+        document.getElementById("stepper-step-3").classList.remove('disabled');
+        document.getElementById('content').innerHTML='<h3>3. Loan Verification Finished and LOA sent</h3>';
+     }
+      if("{{status}}" === 'Verification Rejected')
+     {
+        document.getElementById("stepper-step-1").classList.add('completed');
+        document.getElementById("stepper-step-1").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.add('rejected');
+        document.getElementById("stepper-step-2").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.remove('disabled');
+        document.getElementById("stepper-step-3").classList.add('rejected');
+        document.getElementById("stepper-step-3").classList.remove('disabled');
+        document.getElementById("stepper-step-4").classList.add('rejected');
+        document.getElementById("stepper-step-4").classList.remove('disabled');
+        document.getElementById("stepper-step-5").classList.add('rejected');
+        document.getElementById("stepper-step-5").classList.remove('disabled');
+        document.getElementById("stepper-step-6").classList.add('rejected');
+        document.getElementById("stepper-step-6").classList.remove('disabled');
+        document.getElementById("stepper-step-7").classList.add('rejected');
+        document.getElementById("stepper-step-7").classList.remove('disabled');
+        document.getElementById("stepper-step-8").classList.add('rejected');
+        document.getElementById("stepper-step-8").classList.remove('disabled');
+        document.getElementById('content').innerHTML='<h3>3. Loan has been rejected in the Verification Process</h3>';
+     }
+      if("{{status}}" === 'Business LOA Accepted')
+     {
+        document.getElementById("stepper-step-1").classList.add('completed');
+        document.getElementById("stepper-step-1").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.add('completed');
+        document.getElementById("stepper-step-2").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.remove('disabled');
+        document.getElementById("stepper-step-3").classList.add('completed');
+        document.getElementById("stepper-step-3").classList.remove('active');
+        document.getElementById("stepper-step-3").classList.remove('disabled');
+        document.getElementById("stepper-step-4").classList.add('active');
+        document.getElementById("stepper-step-4").classList.remove('disabled');
+        document.getElementById('content').innerHTML='<h3>4. Letter of Agreement Done and Disbursment in progress</h3></h3>';
+     }
+     if("{{status}}" === 'Business LOA Rejected')
+     {
+        document.getElementById("stepper-step-1").classList.add('completed');
+        document.getElementById("stepper-step-1").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.add('completed');
+        document.getElementById("stepper-step-2").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.remove('disabled');
+        document.getElementById("stepper-step-3").classList.add('rejected');
+        document.getElementById("stepper-step-3").classList.remove('active');
+        document.getElementById("stepper-step-3").classList.remove('disabled');
+        document.getElementById("stepper-step-4").classList.add('rejected');
+        document.getElementById("stepper-step-4").classList.remove('disabled');
+        document.getElementById("stepper-step-5").classList.add('rejected');
+        document.getElementById("stepper-step-5").classList.remove('disabled');
+        document.getElementById("stepper-step-6").classList.add('rejected');
+        document.getElementById("stepper-step-6").classList.remove('disabled');
+        document.getElementById("stepper-step-7").classList.add('rejected');
+        document.getElementById("stepper-step-7").classList.remove('disabled');
+        document.getElementById("stepper-step-8").classList.add('rejected');
+        document.getElementById("stepper-step-8").classList.remove('disabled');
+        document.getElementById('content').innerHTML='<h3>4. Letter of Agreement Rejected. Loan rejected</h3>';
+     }
+      if("{{status}}" === 'Disbursment done')
+     {
+        document.getElementById("stepper-step-1").classList.add('completed');
+        document.getElementById("stepper-step-1").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.add('completed');
+        document.getElementById("stepper-step-2").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.remove('disabled');
+        document.getElementById("stepper-step-3").classList.add('completed');
+        document.getElementById("stepper-step-3").classList.remove('active');
+        document.getElementById("stepper-step-3").classList.remove('disabled');
+        document.getElementById("stepper-step-4").classList.add('completed');
+        document.getElementById("stepper-step-4").classList.remove('active');
+        document.getElementById("stepper-step-4").classList.remove('disabled');
+        document.getElementById("stepper-step-5").classList.add('active');
+        document.getElementById("stepper-step-5").classList.remove('disabled');
+        document.getElementById('content').innerHTML='<h3>5. Disbursment Done and Repayment mail sent to customers</h3>';
+     }
+      if("{{status}}" === 'Collection' )
+    {
+       document.getElementById("stepper-step-1").classList.add('completed');
+       document.getElementById("stepper-step-1").classList.remove('active');
+       document.getElementById("stepper-step-2").classList.add('completed');
+       document.getElementById("stepper-step-2").classList.remove('active');
+       document.getElementById("stepper-step-2").classList.remove('disabled');
+       document.getElementById("stepper-step-3").classList.add('completed');
+       document.getElementById("stepper-step-3").classList.remove('active');
+       document.getElementById("stepper-step-3").classList.remove('disabled');
+       document.getElementById("stepper-step-4").classList.add('completed');
+       document.getElementById("stepper-step-4").classList.remove('active');
+       document.getElementById("stepper-step-4").classList.remove('disabled');
+       document.getElementById("stepper-step-5").classList.add('rejected');
+       document.getElementById("stepper-step-5").classList.remove('disabled');
+       document.getElementById("stepper-step-6").classList.add('rejected');
+       document.getElementById("stepper-step-6").classList.remove('disabled');
+       document.getElementById("stepper-step-7").classList.add('rejected');
+       document.getElementById("stepper-step-7").classList.remove('disabled');
+       document.getElementById("stepper-step-8").classList.add('rejected');
+       document.getElementById("stepper-step-8").classList.remove('disabled');
+       document.getElementById('content').innerHTML='<h3>5. All Customers are not done with their Repayment</h3>';
+    }
+      if("{{status}}" === 'Repayment done')
+     {
+        document.getElementById("stepper-step-1").classList.add('completed');
+        document.getElementById("stepper-step-1").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.add('completed');
+        document.getElementById("stepper-step-2").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.remove('disabled');
+        document.getElementById("stepper-step-3").classList.add('completed');
+        document.getElementById("stepper-step-3").classList.remove('active');
+        document.getElementById("stepper-step-3").classList.remove('disabled');
+        document.getElementById("stepper-step-4").classList.add('completed');
+        document.getElementById("stepper-step-4").classList.remove('active');
+        document.getElementById("stepper-step-4").classList.remove('disabled');
+        document.getElementById("stepper-step-5").classList.add('completed');
+        document.getElementById("stepper-step-5").classList.remove('active');
+        document.getElementById("stepper-step-5").classList.remove('disabled');
+        document.getElementById("stepper-step-6").classList.add('active');
+        document.getElementById("stepper-step-6").classList.remove('disabled');
+        document.getElementById('content').innerHTML='<h3>6. Your customers have done the Repayment and 2nd Disbursment Started</h3>';
+     }
+      if("{{status}}" === 'Second Disbursment done')
+     {
+        document.getElementById("stepper-step-1").classList.add('completed');
+        document.getElementById("stepper-step-1").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.add('completed');
+        document.getElementById("stepper-step-2").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.remove('disabled');
+        document.getElementById("stepper-step-3").classList.add('completed');
+        document.getElementById("stepper-step-3").classList.remove('active');
+        document.getElementById("stepper-step-3").classList.remove('disabled');
+        document.getElementById("stepper-step-4").classList.add('completed');
+        document.getElementById("stepper-step-4").classList.remove('active');
+        document.getElementById("stepper-step-4").classList.remove('disabled');
+        document.getElementById("stepper-step-5").classList.add('completed');
+        document.getElementById("stepper-step-5").classList.remove('active');
+        document.getElementById("stepper-step-5").classList.remove('disabled');
+        document.getElementById("stepper-step-6").classList.add('completed');
+        document.getElementById("stepper-step-6").classList.remove('active');
+        document.getElementById("stepper-step-6").classList.remove('disabled');
+         document.getElementById("stepper-step-7").classList.add('active');
+        document.getElementById("stepper-step-7").classList.remove('disabled');
+        document.getElementById('content').innerHTML='<h3>7. Final Disbursment Done</h3>';
+     }
+       if("{{status}}" === 'Loan done')
+     {
+        document.getElementById("stepper-step-1").classList.add('completed');
+        document.getElementById("stepper-step-1").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.add('completed');
+        document.getElementById("stepper-step-2").classList.remove('active');
+        document.getElementById("stepper-step-2").classList.remove('disabled');
+        document.getElementById("stepper-step-3").classList.add('completed');
+        document.getElementById("stepper-step-3").classList.remove('active');
+        document.getElementById("stepper-step-3").classList.remove('disabled');
+        document.getElementById("stepper-step-4").classList.add('completed');
+        document.getElementById("stepper-step-4").classList.remove('active');
+        document.getElementById("stepper-step-4").classList.remove('disabled');
+        document.getElementById("stepper-step-5").classList.add('completed');
+        document.getElementById("stepper-step-5").classList.remove('active');
+        document.getElementById("stepper-step-5").classList.remove('disabled');
+        document.getElementById("stepper-step-6").classList.add('completed');
+        document.getElementById("stepper-step-6").classList.remove('active');
+        document.getElementById("stepper-step-6").classList.remove('disabled');
+        document.getElementById("stepper-step-7").classList.add('completed');
+        document.getElementById("stepper-step-7").classList.remove('active');
+        document.getElementById("stepper-step-7").classList.remove('disabled');
+        document.getElementById("stepper-step-8").classList.add('completed');
+        document.getElementById("stepper-step-8").classList.remove('disabled');
+        document.getElementById('content').innerHTML='<h3>8.You have successfully completed the loan can apply for one more loan.</h3>';
+     }
+  </script>
+{% endblock %}

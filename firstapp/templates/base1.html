@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   <!-- Optional JavaScript -->
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+ </head>
+
+ <body>
+
+   <nav class="navbar justify-content-between" style="background-color: white;">
+     <a class="navbar-brand" style="padding-left:70px;"><img alt="Uangteman" src="https://media.licdn.com/dms/image/C4E0BAQGHBNw0LY0Grw/company-logo_200_200/0?e=2159024400&v=beta&t=m9bf8WvCT9ZGQMFOfH7nSN4ySO_DPto2oXGCubPWg1Q" width="60px;"></a>
+
+{#     <form class="form-inline">#}
+        {% if not user %}
+            <div class="row">
+                  <a href="{% url 'employeelogin' %}" style="color:white;padding-right:70px;" > <button class="btn btn-primary" style="width: 100px;">Login</button></a>
+            </div>
+{#            <a href="{% url 'employeelogin' %}" class="my-2 my-sm-0" style="padding-right:70px;">Login</a>#}
+         {% else %}
+            <div class="row">
+                <a href="" style="padding-right:10px;"> <button class="btn btn-primary" style="width: 100px;"> Home </button></a>
+                <a href="{% url 'employeelogout' %}" style="padding-right:70px;"><button class="btn btn-danger" style="width: 100px; margin-left: 40px;">Logout</button></a>
+{#                <a href="" class="my-2 my-sm-0" style="padding-right:40px;">Home</a>#}
+{#            <a href="{% url 'employeelogout' %}" class="my-2 my-sm-0" style="padding-right:70px;">Logout</a>#}
+            </div>
+         {% endif %}
+{#     </form>#}
+    </nav>
+
+ {% block content %}{% endblock %}
+ </body>
+</html>

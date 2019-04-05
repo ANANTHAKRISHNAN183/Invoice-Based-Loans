@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+  <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Loan Application Form</title>
+        <link rel="stylesheet" href="{% static 'css/temp.css' %}">
+        <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body style="background-color: #f5f5f5;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-3">
+
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <div class="form-step"><p class="font-maax-rounded-medium bright-blue" style="font-weight: 900;">2</p></div>
+
+          <p class="title-form"><font style="vertical-align: inherit;font-weight: 900;"><font style="vertical-align: inherit;">Provide the reason for Applying Loan</font></font></p>
+
+      <form action="{% url 'reasons' %}" method="POST" style="background-color: white; border: 1px solid #D3D3D3;">
+      {% csrf_token %}
+            {{message}}
+            <div class="col-lg-10" style="position: relative; left: 8.75%;">
+
+
+              <div class="form-group row" style="margin-top: 10px; padding-top: 10px;">
+                  <font style="vertical-align: inherit; font-size: 18px;">Working Capital</font>
+                  <input id="utpromo1" type="radio" name="reasons" value="Working Capital" style="position: absolute; right: 0%; height:1.5em; width:1.5em;" required>
+                  <label for="utpromo1"><div class="outer"><span></span></div></label>
+              </div>
+              <hr width = "110%" style="position: relative; right:5%;">
+              <div class="form-group row" style="margin-top: 10px;">
+                  <font style="vertical-align: inherit; font-size: 18px;">Transportation</font>
+                  <input id="utpromo2" type="radio" name="reasons" value="Transportation" style="position: absolute; right: 0%; height:1.5em; width:1.5em;">
+                  <label for="utpromo2"><div class="outer"><span></span></div></label>
+              </div>
+              <hr width = "110%" style="position: relative; right:5%;">
+              <div class="form-group row" style="margin-top: 10px;">
+                  <font style="vertical-align: inherit; font-size: 18px;">Goods and Services</font>
+                  <input id="utpromo3" type="radio" name="reasons" value="Goods and Services" style="position: absolute; right: 0%; height:1.5em; width:1.5em;">
+                  <label for="utpromo3"><div class="outer"><span></span></div></label>
+              </div>
+
+           <hr>
+              <div class="form-group row">
+{#                <button type="submit" class="btn btn-back"style="height: 50px; width: 100px; margin-top: 9px;"><b>← Back</b></button>#}
+                <button type="submit" class="btn btn-next" style="margin-left: 35%;"><b>Next</b></button>
+              </div>
+
+          </div>
+      </form>
+
+
+		</div>
+	</div>
+	</div>
+    </body>
+{% endblock %}

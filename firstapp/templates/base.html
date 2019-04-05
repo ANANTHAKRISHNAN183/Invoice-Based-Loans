@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+		label{
+        color: #005eb8;
+      }
+      .img-logo{
+          width: 188px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+      }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar bg-faded" style="background-color: white;">
+  <div class="container-fluid">
+
+    <ul class="nav navbar-nav navbar-logo mx-auto">
+      <li class="nav-item">
+        <a style="padding-left: 50%;" href="{% url 'home' %}"><img class="img-logo" src="https://uangteman.com/assets/frontend/statics/v4/images/rebranding/logo_rebranding.png" alt="Money friend"></a>
+      </li>
+    </ul>
+
+
+                {% if not user %}
+                    <div class="row" style="margin-right: 40px;">
+                        <a  style="color:white;" href="{% url 'login' %}">  <button class="btn btn-primary" style="width: 100px;"> Login</button></a>
+                        <a  style="color:white;padding-left: 40px;" href="{% url 'register' %}"><button class="btn btn-primary" style="width: 100px; margin-left: 40px;">Register</button></a>
+                    </div>
+                {% else %}
+
+                 <div class="row" style="margin-right: 40px;">
+                      <a href="{% url 'home' %}"><button class="btn btn-primary" style="width: 100px;"> Home </button></a>
+                     <a href="{% url 'logout' %}" style="padding-left: 40px;"><button class="btn btn-danger" style="width: 100px; margin-left: 40px;">Logout</button></a>
+                 </div>
+                {% endif %}
+
+  </div>
+</nav>
+    <main role="main" class="container-fluid">
+      {% block content %}{% endblock %}
+    </main>
+    <footer>
+       <script language="javascript" type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+        {% block javascript %}{% endblock %}
+   </footer>
+</body>
+</html>

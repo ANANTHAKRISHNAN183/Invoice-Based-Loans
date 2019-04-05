@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+</head>
+<body>
+
+        <br/><br/>
+    <h2 style="color: #005eb8;">You have been Logged out!!</h2>
+        <div class="border-top pt-3">
+            <small class=text-muted"><a  href="{% url 'login' %}">Log In Again</a>
+            </small>
+        </div>
+</body>
+{% endblock %}

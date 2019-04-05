@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Business Details</title>
+      <link rel="stylesheet" href="{% static 'css/temp.css' %}">
+      <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
+      <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+
+</head>
+<body style="background-color: #f5f5f5;">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2 col-md-2"> </div>
+    <div class="col-lg-8 col-md-8"> <br/>
+      <div style="text-align: center;color: orangered"><h4>{{ message }}</h4></div>
+      <div class="form-step"><p class="font-maax-rounded-medium bright-blue">1</p></div>
+      <p class="title-form"><font style="vertical-align: inherit;font-weight: 900;"><font style="vertical-align: inherit;">Business Details Form</font></font></p>
+      <div style="text-align: center;color: orangered"><h4>{{ pan_status }}</h4></div>
+      <form action="{% url 'bsdetails' %}" method="POST" onsubmit="return valid()">
+        {% csrf_token %}
+        <div class="col-lg-10" style="position: relative; left: 8.75%;">
+          <div class="form-group">
+                <label for="bname"><strong>Name of the Business:<font color="red" size="5px">*</font></strong></label>
+                 
+                 <div class="help-tip" style="left: 265px;"><p>Enter the Name of the Business?</p></div>
+                <input class="form-control form-control-lg" type="text" maxlength="50" id="bname" name="bname" value="{{business.b_name }}" required/>
+          
+              </div>
+               <div class="form-group">
+                   <label for="b_owner_name"><strong>Owner of the Business:<font color="red" size="5px">*</font></strong></label>
+                 <div class="help-tip" style="left: 260px;"><p>Enter the Owner Name of the Business?</p></div>
+     <input type="text" class="form-control form-control-lg" maxlength="40" placeholder="" id="b_owner_name" value="{{business.b_owner_name }}" name="b_owner_name" required/>
+                        </div>
+              <div class="form-group">
+                  <label for="b_email"><strong>Email Id:<font color="red" size="5px">*</font></strong></label>
+                  
+                  <div class="help-tip" style="left: 368px;"><p>Enter an email id for the Business</p> </div>
+                
+                  <input type="email" class="form-control form-control-lg" maxlength="40" id="b_email" name="b_email" value="{{business.b_email }}" required/>
+              </div>
+               <div class="form-group">
+                   <label for="b_contact"><strong>Contact No:<font color="red" size="5px">*</font></strong></label>
+                        <div class="help-tip" style="left: 345px;"><p>Enter the contact number for the Business</p> </div>
+                 <input type="number" class="form-control form-control-lg" minlength="10" id="b_contact" value="{{business.b_contact }}"  maxlength="10" oninput="this.value=this.value.slice(0,this.maxLength)"  pattern="[1-9]{9}[0-9]{9}" name="b_contact" required/>
+
+              </div>
+              <div class="form-group">
+                  <label for="b_addr"><strong>Business Address(max 150 chars):<font color="red" size="5px">*</font></strong></label>
+                  <div class="help-tip" style="left: 180px;"><p>Enter the address of the Business</p> </div>
+                 <textarea class="form-control form-control-lg" name="b_addr" id="b_addr" style="resize:none"  minlength="10" maxlength="150" rows="3" required>{{business.b_addr }}</textarea>
+
+              </div>
+              <div class="form-group">
+                  <label for="b_pan_no"><strong>Business PAN No:<font color="red" size="5px">*</font></strong></label>
+                  <div class="help-tip" style="left : 298px;"><p>Enter the Pan No of the Business</p> </div>
+                  <input type="text" class="form-control form-control-lg" title="Enter your 10 digit Business PAN" id="b_pan_no" minlength=9 oninput="this.value = this.value.toUpperCase()" maxlength="10" name="b_pan_no" value="{{business.b_pan_no }}" required/>
+              </div>
+              <div class="form-group">
+                  <label for="b_est_date"><strong>Business Establishment Date:<font color="red" size="5px">*</font></strong></label>
+                       <div class="help-tip" style="left: 212px;"><p>Enter the Pan No of the Business</p> </div>
+                    <input type="date" class="form-control form-control-lg" id="b_est_date" name="b_est_date" min="10-20-1970" max="10-10-2020"  value="{{business.b_est_date|date:'Y-m-d' }}" required/>
+              </div>
+
+                <div class="form-group">
+                    <label for="b_type"><strong>Business Type:</strong><font color="red" size="5px">*</font></label>
+                    <div class="help-tip" style="left: 320px;"><p>Enter the Pan No of the Business</p> </div>
+          <select class="form-control form-control-lg" title="Please select your type of Business"  name="b_type" id="b_type" required aria-required="true">
+
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="Retailer">Retailer</option>
+                <option value="Retailer">Transportation</option>
+                <option value="Textile">Textile</option>
+                <option value="{{business.b_type}}" selected>{{business.b_type}} </option>
+
+            </select>
+                </div>
+
+            </div>
+        <hr>
+              <div class="col text-center">
+{#                <button type="submit" class="btn btn-back"><b>← Back</b></button>#}
+                <button type="submit" class="btn btn-next">Save</button>
+              </div>
+
+          </form>
+        </div>
+        <div class="col-lg-2 col-md-2">
+
+        </div>
+      </div>
+    </div>
+
+    </body>
+    <script>
+    var regex = /^[a-zA-Z ]*$/;
+    var format = /[!#$%^&*()+\-=\[\]{};':"\\|,<>\/?]/;
+    var today = new Date();
+    today.setFullYear(today.getFullYear() - 3);
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+     if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("b_est_date").setAttribute("max", today);
+
+    function valid() {
+        // Checking if user enters only numbers or specialsymbols for business name
+        if(!(isNaN(document.getElementById("bname").value)) || format.test(document.getElementById("bname").value)){
+                window.alert('Enter a valid Business Name(can be Alphanumeric)!!');
+                document.getElementById("bname").focus();
+                return false;
+       }
+       else if(!(regex.test(document.getElementById("b_owner_name").value)) || format.test(document.getElementById("b_owner_name").value)) {
+            window.alert("Owner Name field allows only alphabets!!");
+            document.getElementById("b_owner_name").focus();
+            return false;
+        }
+       else if(document.getElementById("b_contact").value.length < 10){
+           window.alert("Mobile Number must be 10 digits!");
+           document.getElementById("b_contact").focus();
+           return false;
+        }
+       else if(document.getElementById("b_type").value === ' ' || document.getElementById("b_type").value === null){
+           window.alert("Please select your Type of Business!");
+           document.getElementById("b_type").focus();
+           return false;
+       }
+       else {
+           return true;
+       }
+    }
+    </script>
+{% endblock %}

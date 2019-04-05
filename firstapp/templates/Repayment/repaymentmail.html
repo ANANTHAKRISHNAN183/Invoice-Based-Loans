@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% block content %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Loan Repayment</title>
+    <link rel="stylesheet" href="{% static '' %}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+
+
+         /* Set a style for all buttons */
+        form {
+          max-width: 500px;
+          margin: 70px auto;
+          padding: 20px 30px;
+          background: #f4f7f8;
+          border-radius: 10px;
+        }
+
+        button {
+          font-size: 100px;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          cursor: pointer;
+          width: 150px;
+
+        }
+        table{
+            alignment: center;
+        }
+
+    </style>
+</head>
+
+<body style="text-align: center; align-content: center">
+    <nav class="navbar bg-faded" style="background-color: white;">
+       <div class="container">
+           <a style="padding-left: 40%;" href=""><img class="img-logo" src="https://uangteman.com/assets/frontend/statics/v4/images/rebranding/logo_rebranding.png" alt="Money friend"></a>
+       </div>
+     </nav>
+    <form action="" method="POST" style="margin-top: 100px;" onsubmit="return valid()">
+        {%  csrf_token %}
+            <div style="text-align: center;"><h2>Invoice Payment</h2></div><br/>
+            <center><table style="border: 0;">
+            <tr>
+                <td>Business Name    </td> <td>:</td>
+                <td>{{ acceptedCustomer.b_id }}</td>
+            </tr>
+            <tr>
+                <td>Customer Name    </td><td>:</td>
+                <td>{{ acceptedCustomer.c_id }}</td>
+            </tr><tr>
+                <td>Your Payable Amount   </td><td>:</td>
+                <td>{{ total_amount }}</td>
+            </tr>
+            <tr>
+                <td colspan="3"><center><button type="submit" class="btn btn-primary" name="submit" style="background-color: darkcyan;">Make Payment</button></center></td>
+
+            </tr>
+            </table></center>
+        {#        <div class="col-lg-12" style="font-size: 17px;">#}
+{#            <div class="row">#}
+{#            <label for="bname">Business Name :</label>#}
+{#                <div style="position: absolute;left: 40%;">#}
+{#            <label>{{ acceptedCustomer.b_id }}</label>#}
+{#                </div></div><br/>#}
+{#                <div class="row">#}
+{#            <label for="cname">Customer Name :</label>#}
+{#                <div style="position: absolute;left: 40%;">#}
+{#            <label>{{ acceptedCustomer.c_id }}</label>#}
+{#                </div></div><br>#}
+{#            <div class="row">#}
+{#            <label for="invoice-amt">Your Payable Amount :</label>#}
+{#                <div style="position: absolute;left: 40%;">#}
+{#                    <label>{{ total_amount }}<p id="total_invoice_amount" ></p></label></div></div>#}
+{#                    <br/>#}
+{#            <center><button type="submit" class="btn btn-primary" name="submit" style="background-color: darkcyan;">Make Payment</button></center> &nbsp;#}
+{#        </div>#}
+    </form>
+</body>
+{% endblock %}

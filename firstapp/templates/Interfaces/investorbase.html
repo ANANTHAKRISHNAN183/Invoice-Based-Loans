@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <style>
+		label{
+        color: #005eb8;
+      }
+      .img-logo{
+          width: 188px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+      }
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!--<link rel="stylesheet" type="text/css" href="{% static '/' %}"> -->
+</head>
+<body>
+
+    <nav class="navbar bg-faded" style="background-color: white;">
+  <div class="container-fluid">
+
+    <ul class="nav navbar-nav navbar-logo mx-auto">
+      <li class="nav-item">
+        <a style="padding-left: 50%;" href=""><img class="img-logo" src="https://uangteman.com/assets/frontend/statics/v4/images/rebranding/logo_rebranding.png" alt="Money friend"></a>
+      </li>
+    </ul>
+
+
+                {% if not user %}
+                    <div class="row" style="margin-right: 40px;">
+                        <a  style="color:white;" href="{% url 'investor_login' %}">  <button class="btn btn-primary" style="width: 100px;"> Login</button></a>
+                        <a  style="color:white;padding-left: 40px;" href="{% url 'investor_register' %}"><button class="btn btn-primary" style="width: 100px; margin-left: 40px;">Register</button></a>
+                    </div>
+                {% else %}
+
+                 <div class="row" style="margin-right: 40px;">
+                      <a href="{% url 'investor_interface' %}"><button class="btn btn-primary" style="width: 100px;"> Home </button></a>
+                     <a href="{% url 'investor_logout' %}" style="padding-left: 40px;"><button class="btn btn-danger" style="width: 100px; margin-left: 40px;">Logout</button></a>
+                 </div>
+                {% endif %}
+
+  </div>
+</nav>
+    <main role="main" class="container-fluid">
+      {% block content %}{% endblock %}
+    </main>
+    <footer>
+       <script language="javascript" type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+        {% block javascript %}{% endblock %}
+   </footer>
+</body>
+</html>

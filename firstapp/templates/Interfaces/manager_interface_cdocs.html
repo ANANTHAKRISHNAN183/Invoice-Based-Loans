@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% extends 'base1.html' %}s
+{% load staticfiles %}
+{% block content %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Manager Workbench</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+</head>
+<body style="background-color: #f5f5f5">
+    <center><h2 style="color: #005eb8;margin-top: 10px;">Cusotmer Documents from Staffing</h2></center><br/>
+    <center><table id="myTable" class="table table-hover table-bordered" style="border-color: black;font-size: 17px; width:95%;word-wrap: break-word; table-layout: fixed; background-color: white;">
+    <thead>
+       <tr>
+              <th>Loan Id</th>
+              <th>Customer Id</th>
+              <th>Customer Audit File</th>
+              <th>Customer Sales Ledger</th>
+              <th>Customer Invoice</th>
+              <th>Update Status</th>
+       </tr>
+    </thead>
+    	{% for i in staff %}
+      <tbody>
+          <tr>
+            <td>{{i.loan_id.loan_id}}</td>
+            <td>{{i.c_id.c_id}}</td>
+            <td><a href="{{i.st_file_audit}}" >File Audit</a></td>
+            <td><a href="{{i.st_sales_ledger}}">Sales Ledger</a></td>
+            <td><a href="{{i.st_file_invoice}}">Invoice</a> </td>
+            <td><button type="submit" id='myBtn' class="btn btn-primary" onclick="display()" name="btn">Update Status</button>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div id="myModal" class="modal" style="position: absolute;vertical-align: middle;left: 50%;top: 50%;transform: translate(-50%, -50%);">
+		            <div class="modal-content" style="width: 800px;height: 430px;background-color: #f5f5f5;">
+
+		                <span class="close" style="position:absolute;left : 95%;font-size: xx-large">&times;</span>
+                        <div style="position: absolute; left: 5%;margin-top: 30px;">
+                            <center><h2 style="color: #005eb8;">Please provide the status of customer</h2></center>
+                            <br/>
+                            <ul class="list-group" style="width: 720px">
+                                <li class="list-group-item" >
+                                    <div class="row">
+                                        <label for="status" style="margin-left: 20px;"> Final Status:</label>
+                                        <div style="position: absolute;left:30%;">
+                                            <input type="radio" value="Accepted" name="status" id="Approve" required/><label for="Approve">Approve</label>&nbsp;&nbsp;&nbsp;
+                                            <input type="radio" value="Rejected" name="status" id="Reject" /><label for="Reject"> Reject</label>
+                                        </div>
+                                    </div>
+                                </li>
+{#                        <input type="radio" value="RedirectMV" name="status"/>Redirect to Manual Verfication &nbsp;&nbsp;#}
+
+                                <li class="list-group-item">
+                                    <label for="remarks">Remarks:</label><br/>
+                                    <textarea name="remarks" id="remarks" placeholder="Specify the reasons if Customer gets Rejected" rows="3" cols="3" style="background-color:#f4f7f8;resize:none;width: 600px;border-color: #8a97a0;border-radius: 5px"></textarea>
+                                </li>
+                            </ul><br/>
+                            <center><button type="submit" class="btn btn-primary" name="updatecustomer" value="{{ i.c_id.c_id }}">Submit</button></center>
+                    </div>
+                </div>
+            </div>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+  {% endfor %}
+   </table>
+    </center>
+</body>
+    <script type="text/javascript">
+        function checkoption() {
+            if(document.getElementById("yes").selected){
+                document.getElementById("ifYes").style.display = "block";
+            }
+        }
+
+   		var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+ function display() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+   	</script>
+{% endblock %}

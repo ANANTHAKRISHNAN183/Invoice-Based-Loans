@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+{% extends 'base1.html' %}
+{% load staticfiles %}
+{% block content %}
+<head xmlns="http://www.w3.org/1999/html">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    {% comment %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">{% endcomment %}
+
+    <title>Staff Interface</title>
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body style="background-color: #f5f5f5">
+    <div style="text-align: center;"><h2>{{ message }}</h2></div>
+    <center><h2 style="color: #005eb8;">Customer Details</h2></center><br/>
+    <center><table class="table table-hover table-bordered" style="border-color: black;font-size: 17px; width:95%; word-wrap: break-word; table-layout: fixed; background-color: white;">
+    <thead>
+{#    <table style="width:100%;border-collapse: collapse;table-layout: auto" border="3">#}
+          <tr>
+              <th width="7%">Loan Id</th>
+              <th width="9%">Customer Id</th>
+              <th>Customer Owner Name</th>
+              <th>Customer Business Name</th>
+              <th>Customer Business Type</th>
+              <th>Invoice Amount</th>
+              <th>Email ID</th>
+              <th>Contact Number</th>
+              <th>Remarks</th>
+              <th style="width: 12%">Status</th>
+          </tr>
+    </thead>
+    	{% for i in cust %}
+    <tbody>
+          <tr>
+                <td>{{i.loan_id.loan_id}}</td>
+                <td>{{i.c_id.c_id}}</td>
+                <td>{{i.c_id.c_owner_name}}</td>
+                <td>{{i.c_id.cb_name}}</td>
+                <td>{{i.c_id.cb_type}}</td>
+                <td>{{i.c_id.cb_invoice_amt}}</td>
+                <td>{{i.c_id.cb_email}}</td>
+                <td>{{i.c_id.cb_contact}}</td>
+                <td>{{ i.mv_remarks }}</td>
+                <td><button type="submit" class="btn btn-primary" id='myBtn' name="btn" onclick="display()">Update Status</button>
+
+                <form action="{% url 'Staffinterface' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div id="myModal" class="modal">
+		                <div class="modal-content" style="width: 800px;height: 630px;background-color: #f5f5f5;">
+		                    <span class="close" style="position:absolute;left : 95%;font-size: xx-large;">&times;</span>
+                            <div style="position: absolute; left: 5%;margin-top: 20px;">
+                            <h2 style="color: #005eb8;">Please provide the valid Documents of customer taken from Survey Team</h2>
+                            <ul class="list-group" style="width: 720px">
+                                <li class="list-group-item">
+                                <div class="row">
+                                    <label for="c_file_audit">Audit File:</label>
+                                    <div style="position: absolute;left: 40%;">
+                                    <input type="file" accept="image/*,.docx,.doc,.pdf" name="c_file_audit" id="c_file_audit" onchange="return fileValidation(c_file_audit)" value="" required>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="list-group-item">
+                                <div class="row">
+                                    <label for="c_sales_ledger">Sales Ledger:</label>
+                                    <div style="position: absolute;left: 40%;">
+                                    <input type="file" accept="image/*,.docx,.doc,.pdf" name="c_sales_ledger" id="c_sales_ledger" onchange="return fileValidation(c_sales_ledger)" value="" required>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="list-group-item">
+                                <div class="row">
+                                    <label for="c_file_invoice">Customer Invoice:</label>
+                                    <div style="position: absolute;left: 40%;">
+                                    <input type="file" accept="image/*,.docx,.doc,.pdf" name="c_file_invoice" id="c_file_invoice" onchange="return fileValidation(c_file_invoice)" value="" required>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="list-group-item">
+                                <div class="row">
+                                    <label for="c_file_statement">File Statement:</label>
+                                    <div style="position: absolute;left: 40%;">
+                                    <input type="file" accept="image/*,.docx,.doc,.pdf" name="c_file_statement" id="c_file_statement" onchange="return fileValidation(c_file_statement)" value="" required>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="list-group-item">
+                                <div class="row">
+                                    <label for="status">Final Status:</label>
+                                    <div style="position: absolute;left: 40%;">
+                                    <input type="radio" value="Accepted" name="status" id="Accepted" required/><label for="Accepted">Accepted</label> &nbsp;
+                                    <input type="radio" value="Rejected" name="status" id="Rejected"/><label for="Rejected">Rejected</label>
+                                    </div>
+                                </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <label for="remarks">Remarks:</label><br/>
+                                    <textarea name="remarks" id="remarks" placeholder="Specify the reasons if Customer gets Rejected" rows="3" cols="3" style="background-color:#f4f7f8;resize:none;width: 600px;border-color: #8a97a0;border-radius: 5px"></textarea>
+                                </li>
+                            </ul>
+                            <center><button type="submit" class="btn btn-primary" style="width:150px; height: 50px; border-radius: 15px;margin-top: 5px;" name="updatecustomer" value="{{ i.c_id.c_id }}">Submit</button></center>
+                    </div>
+                </div>
+                    </div>
+        </form>
+    </td>
+  </tr>
+     </tbody>
+    {% endfor %}
+    </table>
+    {% if not cust %}
+        {% comment %}<div id="bmodal" class="modal">
+        <div class="modal-content">{% endcomment %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+{#        <tr style="border: none;"><td colspan="7">#}
+                 <div class="modal-content" id="busmodel">
+
+                            <div class="col-md-12">
+                            <h2>Please provide the  final status of Business along with Documents:</h2><br/>
+                            <ul class="list-group" style="width: 720px">
+                                <li class="list-group-item" >
+                                    <div class="row">
+                                        <label for="b_file_audit">Business Audit File:</label>
+                                        <div style="position: absolute;left: 40%;">
+		                                    <input type="file" accept="image/*,.docx,.doc,.pdf" name="b_file_audit" id="b_file_audit" onchange="return fileValidation(b_file_audit)" value="" required><br/>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <label for="b_sales_ledger">Sales Ledger:</label>
+                                        <div style="position: absolute;left: 40%;">
+                                            <input type="file" accept="image/*,.docx,.doc,.pdf" name="b_sales_ledger" id="b_sales_ledger" onchange="return fileValidation(b_sales_ledger)"  value="" required>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <label for="status"> Final Status:</label>
+                                        <div style="position: absolute;left:40%;">
+                                            <input type="radio" value="Accepted" name="status" id="Approve" required/><label for="Approve"> Approve</label>&nbsp;&nbsp;&nbsp;
+                                            <input type="radio" value="Rejected" name="status" id="Reject"/><label for="Reject"> Reject</label>
+                                        <br/>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <label for="remarks">Remarks:</label><br/>
+                                    <textarea name="remarks" id="remarks" placeholder="Specify the reasons if Business gets Rejected" rows="3" cols="100" style="background-color:#f4f7f8;resize:none;width: 600px;border-color: #8a97a0;border-radius: 5px;"></textarea>
+                                </li>
+                            </ul>
+                            <br/>
+{#                    </td>#}
+{#                   <td colspan="3" style="alignment: center"> </td>            #}
+                            <button type="submit" class="btn btn-primary" id='bupdate' value="{{i.loan_id.loan_id}}" style="margin-top: 5px;" name="updatebusiness">Update Business Status</button>
+                 </div>
+            </div>
+{#        </tr>#}
+    </form>
+        {% comment %}</div></div>{% endcomment %}
+    {% endif %}
+    </center>
+</body>
+
+<script type="text/javascript">
+
+    function fileValidation(file){
+       var fileInput = file;
+       var filePath = fileInput.value;
+       var allowedExtensions = /(\.png|\.jpg|\.jpeg|\.pdf|\.doc|\.docx)$/i;
+       if(!allowedExtensions.exec(filePath)){
+           alert('Please upload file having extensions .png/.jpeg/.jpg/.pdf/.doc only.');
+           fileInput.value = '';
+           return false;
+       }else{
+           //Image preview
+           if (fileInput.files && fileInput.files[0]) {
+               var reader = new FileReader();
+               reader.onload = function(e) {
+                   document.getElementById('imagePreview').innerHTML = '<img src="'+e.target.result+'"/>';
+               };
+               reader.readAsDataURL(fileInput.files[0]);
+           }
+       }
+    }
+   		var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        function display() {
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        };
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+   	</script>
+{% endblock %}

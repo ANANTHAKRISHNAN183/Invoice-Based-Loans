@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+  <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration</title>
+        <link rel="stylesheet" href="{% static 'css/temp.css' %}">
+        <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body style="background-color: #f5f5f5;">
+<div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-3">
+
+        </div>
+        <div class="col-lg-6 col-md-6">
+{#          <div class="form-step"><p class="font-maax-rounded-medium bright-blue" style="font-weight: 900;">2</p></div>#}
+            <br/>
+          <p class="title-form"><font style="vertical-align: inherit;font-weight: 900;"><font style="vertical-align: inherit;">How do you know UangTeman?</font></font></p>
+		  <form action="{% url 'advdetails' %}" method="POST" style="background-color: white; border: 1px solid #D3D3D3;">
+             {% csrf_token %}
+            {{message}}
+            <div class="col-lg-10" style="position: relative; left: 8.75%;">
+
+
+              <div class="form-group row" style="margin-top: 10px; padding-top: 10px;">
+
+                  <font style="vertical-align: inherit; font-size: 18px;">Billboard</font>
+                  <input id="utpromo1" type="radio" name="utpromo" value="Billboard" style="position: absolute; right: 0%; height:1.5em; width:1.5em;" required>
+                  <label for="utpromo1"><div class="outer"><span></span></div></label>
+              </div>
+              <hr width = "110%" style="position: relative; right:5%;">
+              <div class="form-group row" style="margin-top: 10px;">
+                  <font style="vertical-align: inherit; font-size: 18px;">Cinema</font>
+                  <input id="utpromo2" type="radio" name="utpromo" value="Cinema" style="position: absolute; right: 0%; height:1.5em; width:1.5em;">
+                  <label for="utpromo2"><div class="outer"><span></span></div></label>
+              </div>
+              <hr width = "110%" style="position: relative; right:5%;">
+              <div class="form-group row" style="margin-top: 10px;">
+                  <font style="vertical-align: inherit; font-size: 18px;">Brochure</font>
+                  <input id="utpromo3" type="radio" name="utpromo" value="Brochure" style="position: absolute; right: 0%; height:1.5em; width:1.5em;">
+                  <label for="utpromo3"><div class="outer"><span></span></div></label>
+              </div>
+              <hr width = "110%" style="position: relative; right:5%;">
+              <div class="form-group row" style="margin-top: 10px;">
+                  <font style="vertical-align: inherit; font-size: 18px;">SMS/Email</font>
+                  <input id="utpromo4" type="radio" name="utpromo" value="SMS/Email" style="position: absolute; right: 0%; height:1.5em; width:1.5em;">
+                  <label for="utpromo4"><div class="outer"><span></span></div></label>
+              </div>
+              <hr width = "110%" style="position: relative; right:5%;">
+              <div class="form-group row" style="margin-top: 10px;">
+                  <font style="vertical-align: inherit; font-size: 18px;">Social Network</font>
+                  <input id="utpromo5" type="radio" name="utpromo" value="Social Network" style="position: absolute; right: 0%; height:1.5em; width:1.5em;">
+                  <label for="utpromo5"><div class="outer"><span></span></div></label>
+              </div>
+              <hr width = "110%" style="position: relative; right:5%;">
+              <div class="form-group row" style="margin-top: 10px;">
+                  <font style="vertical-align: inherit; font-size: 18px;">Radio</font>
+                  <input id="utpromo6" type="radio" name="utpromo" value="Radio" style="position: absolute; right: 0%; height:1.5em; width:1.5em;">
+                  <label for="utpromo6"><div class="outer"><span></span></div></label>
+              </div>
+              <hr width = "110%" style="position: relative; right:5%;">
+              <div class="form-group row" style="margin-top: 10px;">
+                  <font style="vertical-align: inherit; font-size: 18px;">Friends and Relatives</font>
+                  <input id="utpromo7" type="radio" name="utpromo" value="Friends and Relatives" style="position: absolute; right: 0%; height:1.5em; width:1.5em;">
+                  <label for="utpromo7"><div class="outer"><span></span></div></label>
+              </div>
+           <hr>
+              <div class="form-group row">
+{#                <button type="submit" class="btn btn-back" name="back" style="height: 50px; width: 100px; margin-top: 9px;"><b>← Back</b></button>#}
+                  <button type="submit" class="btn btn-next" style="margin-left: 32%;"><b>Submit</b></button>
+              </div>
+
+          </div>
+      </form>
+
+
+		</div>
+	</div>
+	</div>
+    </body>
+{% endblock %}
